@@ -7,7 +7,9 @@
  */
 
 namespace App\Http\Controllers;
+use App\BaseNews;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
 
 class AddNews extends BaseController
 {
@@ -16,7 +18,12 @@ class AddNews extends BaseController
         return view('add');
     }
     public function create(){
-        return view('create');
+        return view('admin.index');
+    }
+    public function store(BaseNews $baseModel, Request $request)
+    {
+        $baseModel->create($request->all());
+        return redirect()->route('create')->with('status', 'Запись добавлена!');;
     }
     public function update(){
 
@@ -24,4 +31,15 @@ class AddNews extends BaseController
     public function delete(){
 
     }
+    public function ShowNews()
+    {
+        $showNews = \App\BaseNews::orderBy('ID','DESC')->paginate(5);
+        return \Illuminate\Support\Facades\View::make('BaseNews')->with('showNews',$showNews);
+    }
+    public function ShowMoreNews($id)
+    {
+        $showNews = \App\BaseNews::where('ID', $id)->orderBy('ID','DESC')->paginate(5);
+        return \Illuminate\Support\Facades\View::make('NewsMore')->with('showNews',$showNews);
+    }
+
 }

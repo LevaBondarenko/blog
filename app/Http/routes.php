@@ -12,10 +12,13 @@
 */
 use Illuminate\Pagination\LengthAwarePaginator;
 
-Route::get('/','Flow@index');
-Route::get('/add','AddNews@index');
+Route::get('','Flow@index');
+Route::get('add','AddNews@index');
 
 
-Route::get('/tj/','Flow@indexTj');
-Route::get('/create/','AddNews@create');
-Route::get('/webproject/','Flow@indexWp');
+Route::get('tj/','Flow@indexTj');
+Route::get('admin',array('as'=>'create','uses'=>'AddNews@create'));
+Route::get('admin/save', array('as'=>'save','uses'=>'AddNews@store'));
+Route::get('webproject/','Flow@indexWp');
+Route::get('show','AddNews@ShowNews');
+Route::get('show/{id}','AddNews@ShowMoreNews');
