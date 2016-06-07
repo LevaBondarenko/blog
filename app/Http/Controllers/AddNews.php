@@ -23,7 +23,7 @@ class AddNews extends BaseController
     public function store(BaseNews $baseModel, Request $request)
     {
         $baseModel->create($request->all());
-        return redirect()->route('create')->with('status', 'Запись добавлена!');;
+        return redirect()->route('create')->with('status', 'Запись добавлена!');
     }
     public function update(){
 
